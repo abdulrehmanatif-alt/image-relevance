@@ -5,8 +5,8 @@ class Settings(BaseSettings):
     app_name: str = "AI Image Understanding & Content Matching Engine"
     debug: bool = True
 
-    llm_provider: str = "openrouter"
-    llm_model: str = "openrouter/free"
+    llm_provider: str = "gemini"
+    llm_model: str = "gemini-2.5-flash"
     llm_api_key: str = ""
 
     model_config = SettingsConfigDict(
