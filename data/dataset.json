@@ -1,0 +1,470 @@
+{
+  "version": "dev-1.0",
+  "purpose": "Development fixture for the image understanding and matching pipeline.",
+  "final_dataset": false,
+  "target_image_count": 50,
+  "images": [
+    {
+      "id": "fox_001",
+      "category": "fox",
+      "filename": "fox_001.jpg",
+      "path": "data/images/fox_001.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "fox_002",
+      "category": "fox",
+      "filename": "fox_002.jpg",
+      "path": "data/images/fox_002.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "fox_003",
+      "category": "fox",
+      "filename": "fox_003.jpg",
+      "path": "data/images/fox_003.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "fox_004",
+      "category": "fox",
+      "filename": "fox_004.jpg",
+      "path": "data/images/fox_004.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "fox_005",
+      "category": "fox",
+      "filename": "fox_005.jpg",
+      "path": "data/images/fox_005.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "wolf_001",
+      "category": "wolf",
+      "filename": "wolf_001.jpg",
+      "path": "data/images/wolf_001.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "wolf_002",
+      "category": "wolf",
+      "filename": "wolf_002.jpg",
+      "path": "data/images/wolf_002.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "wolf_003",
+      "category": "wolf",
+      "filename": "wolf_003.jpg",
+      "path": "data/images/wolf_003.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "wolf_004",
+      "category": "wolf",
+      "filename": "wolf_004.jpg",
+      "path": "data/images/wolf_004.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "wolf_005",
+      "category": "wolf",
+      "filename": "wolf_005.jpg",
+      "path": "data/images/wolf_005.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "cat_001",
+      "category": "cat",
+      "filename": "cat_001.jpg",
+      "path": "data/images/cat_001.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "cat_002",
+      "category": "cat",
+      "filename": "cat_002.jpg",
+      "path": "data/images/cat_002.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "cat_003",
+      "category": "cat",
+      "filename": "cat_003.jpg",
+      "path": "data/images/cat_003.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "cat_004",
+      "category": "cat",
+      "filename": "cat_004.jpg",
+      "path": "data/images/cat_004.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "cat_005",
+      "category": "cat",
+      "filename": "cat_005.jpg",
+      "path": "data/images/cat_005.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "dog_001",
+      "category": "dog",
+      "filename": "dog_001.jpg",
+      "path": "data/images/dog_001.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "dog_002",
+      "category": "dog",
+      "filename": "dog_002.jpg",
+      "path": "data/images/dog_002.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "dog_003",
+      "category": "dog",
+      "filename": "dog_003.jpg",
+      "path": "data/images/dog_003.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "dog_004",
+      "category": "dog",
+      "filename": "dog_004.jpg",
+      "path": "data/images/dog_004.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "dog_005",
+      "category": "dog",
+      "filename": "dog_005.jpg",
+      "path": "data/images/dog_005.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "bird_001",
+      "category": "bird",
+      "filename": "bird_001.jpg",
+      "path": "data/images/bird_001.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "bird_002",
+      "category": "bird",
+      "filename": "bird_002.jpg",
+      "path": "data/images/bird_002.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "bird_003",
+      "category": "bird",
+      "filename": "bird_003.jpg",
+      "path": "data/images/bird_003.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "bird_004",
+      "category": "bird",
+      "filename": "bird_004.jpg",
+      "path": "data/images/bird_004.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "bird_005",
+      "category": "bird",
+      "filename": "bird_005.jpg",
+      "path": "data/images/bird_005.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "horse_001",
+      "category": "horse",
+      "filename": "horse_001.jpg",
+      "path": "data/images/horse_001.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "horse_002",
+      "category": "horse",
+      "filename": "horse_002.jpg",
+      "path": "data/images/horse_002.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "horse_003",
+      "category": "horse",
+      "filename": "horse_003.jpg",
+      "path": "data/images/horse_003.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "horse_004",
+      "category": "horse",
+      "filename": "horse_004.jpg",
+      "path": "data/images/horse_004.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "horse_005",
+      "category": "horse",
+      "filename": "horse_005.jpg",
+      "path": "data/images/horse_005.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "motorcycle_001",
+      "category": "motorcycle",
+      "filename": "motorcycle_001.jpg",
+      "path": "data/images/motorcycle_001.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "motorcycle_002",
+      "category": "motorcycle",
+      "filename": "motorcycle_002.jpg",
+      "path": "data/images/motorcycle_002.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "motorcycle_003",
+      "category": "motorcycle",
+      "filename": "motorcycle_003.jpg",
+      "path": "data/images/motorcycle_003.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "motorcycle_004",
+      "category": "motorcycle",
+      "filename": "motorcycle_004.jpg",
+      "path": "data/images/motorcycle_004.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "motorcycle_005",
+      "category": "motorcycle",
+      "filename": "motorcycle_005.jpg",
+      "path": "data/images/motorcycle_005.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "car_001",
+      "category": "car",
+      "filename": "car_001.jpg",
+      "path": "data/images/car_001.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "car_002",
+      "category": "car",
+      "filename": "car_002.jpg",
+      "path": "data/images/car_002.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "car_003",
+      "category": "car",
+      "filename": "car_003.jpg",
+      "path": "data/images/car_003.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "car_004",
+      "category": "car",
+      "filename": "car_004.jpg",
+      "path": "data/images/car_004.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "car_005",
+      "category": "car",
+      "filename": "car_005.jpg",
+      "path": "data/images/car_005.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "mountain_001",
+      "category": "mountain",
+      "filename": "mountain_001.jpg",
+      "path": "data/images/mountain_001.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "mountain_002",
+      "category": "mountain",
+      "filename": "mountain_002.jpg",
+      "path": "data/images/mountain_002.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "mountain_003",
+      "category": "mountain",
+      "filename": "mountain_003.jpg",
+      "path": "data/images/mountain_003.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "mountain_004",
+      "category": "mountain",
+      "filename": "mountain_004.jpg",
+      "path": "data/images/mountain_004.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "mountain_005",
+      "category": "mountain",
+      "filename": "mountain_005.jpg",
+      "path": "data/images/mountain_005.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "plain_001",
+      "category": "plain",
+      "filename": "plain_001.jpg",
+      "path": "data/images/plain_001.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "plain_002",
+      "category": "plain",
+      "filename": "plain_002.jpg",
+      "path": "data/images/plain_002.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "plain_003",
+      "category": "plain",
+      "filename": "plain_003.jpg",
+      "path": "data/images/plain_003.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "plain_004",
+      "category": "plain",
+      "filename": "plain_004.jpg",
+      "path": "data/images/plain_004.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    },
+    {
+      "id": "plain_005",
+      "category": "plain",
+      "filename": "plain_005.jpg",
+      "path": "data/images/plain_005.jpg",
+      "source": "synthetic-development",
+      "license": "Project-generated",
+      "resolution": "512x512"
+    }
+  ],
+  "category_counts": {
+    "fox": 5,
+    "wolf": 5,
+    "cat": 5,
+    "dog": 5,
+    "bird": 5,
+    "horse": 5,
+    "motorcycle": 5,
+    "car": 5,
+    "mountain": 5,
+    "plain": 5
+  }
+}
