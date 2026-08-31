@@ -5,466 +5,630 @@
   "target_image_count": 50,
   "images": [
     {
-      "id": "fox_001",
-      "category": "fox",
-      "filename": "fox_001.jpg",
-      "path": "data/images/fox_001.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "fox_002",
-      "category": "fox",
-      "filename": "fox_002.jpg",
-      "path": "data/images/fox_002.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "fox_003",
-      "category": "fox",
-      "filename": "fox_003.jpg",
-      "path": "data/images/fox_003.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "fox_004",
-      "category": "fox",
-      "filename": "fox_004.jpg",
-      "path": "data/images/fox_004.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "fox_005",
-      "category": "fox",
-      "filename": "fox_005.jpg",
-      "path": "data/images/fox_005.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "wolf_001",
-      "category": "wolf",
-      "filename": "wolf_001.jpg",
-      "path": "data/images/wolf_001.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "wolf_002",
-      "category": "wolf",
-      "filename": "wolf_002.jpg",
-      "path": "data/images/wolf_002.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "wolf_003",
-      "category": "wolf",
-      "filename": "wolf_003.jpg",
-      "path": "data/images/wolf_003.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "wolf_004",
-      "category": "wolf",
-      "filename": "wolf_004.jpg",
-      "path": "data/images/wolf_004.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "wolf_005",
-      "category": "wolf",
-      "filename": "wolf_005.jpg",
-      "path": "data/images/wolf_005.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "cat_001",
-      "category": "cat",
-      "filename": "cat_001.jpg",
-      "path": "data/images/cat_001.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "cat_002",
-      "category": "cat",
-      "filename": "cat_002.jpg",
-      "path": "data/images/cat_002.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "cat_003",
-      "category": "cat",
-      "filename": "cat_003.jpg",
-      "path": "data/images/cat_003.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "cat_004",
-      "category": "cat",
-      "filename": "cat_004.jpg",
-      "path": "data/images/cat_004.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "cat_005",
-      "category": "cat",
-      "filename": "cat_005.jpg",
-      "path": "data/images/cat_005.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "dog_001",
-      "category": "dog",
-      "filename": "dog_001.jpg",
-      "path": "data/images/dog_001.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "dog_002",
-      "category": "dog",
-      "filename": "dog_002.jpg",
-      "path": "data/images/dog_002.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "dog_003",
-      "category": "dog",
-      "filename": "dog_003.jpg",
-      "path": "data/images/dog_003.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "dog_004",
-      "category": "dog",
-      "filename": "dog_004.jpg",
-      "path": "data/images/dog_004.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "dog_005",
-      "category": "dog",
-      "filename": "dog_005.jpg",
-      "path": "data/images/dog_005.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "bird_001",
-      "category": "bird",
       "filename": "bird_001.jpg",
       "path": "data/images/bird_001.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
+      "subject": "bird",
+      "category": "animal",
+      "attributes": [
+        "blue",
+        "geometric",
+        "minimalist",
+        "yellow beak"
+      ],
+      "caption": "A simple geometric illustration of a blue bird set against a blue sky and green ground.",
+      "confidence": 0.95,
+      "status": "processed",
+      "attempts": 2,
+      "usage": {
+        "prompt_tokens": 1313,
+        "output_tokens": 48,
+        "thoughts_tokens": 425,
+        "total_tokens": 1786,
+        "estimated_cost": 0.0
+      }
     },
     {
-      "id": "bird_002",
-      "category": "bird",
       "filename": "bird_002.jpg",
       "path": "data/images/bird_002.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
+      "subject": "blue bird",
+      "category": "animal",
+      "attributes": [
+        "blue body",
+        "yellow beak",
+        "geometric shapes",
+        "minimalist",
+        "digital illustration"
+      ],
+      "caption": "Minimalist geometric illustration of a blue bird on a green field against a blue sky background.",
+      "confidence": 0.95,
+      "status": "processed",
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1313,
+        "output_tokens": 55,
+        "thoughts_tokens": 509,
+        "total_tokens": 1877,
+        "estimated_cost": 0.0
+      }
     },
     {
-      "id": "bird_003",
-      "category": "bird",
       "filename": "bird_003.jpg",
       "path": "data/images/bird_003.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
+      "subject": "blue bird",
+      "category": "animal",
+      "attributes": [
+        "blue",
+        "geometric",
+        "minimalist",
+        "yellow beak"
+      ],
+      "caption": "Geometric illustration of a blue bird made of simple shapes on a blue and green background.",
+      "confidence": 0.95,
+      "status": "processed",
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1313,
+        "output_tokens": 49,
+        "thoughts_tokens": 218,
+        "total_tokens": 1580,
+        "estimated_cost": 0.0
+      }
     },
     {
-      "id": "bird_004",
-      "category": "bird",
       "filename": "bird_004.jpg",
       "path": "data/images/bird_004.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
+      "subject": "bird",
+      "category": "animal",
+      "attributes": [
+        "blue",
+        "geometric",
+        "minimalist",
+        "2D vector",
+        "yellow beak"
+      ],
+      "caption": "Simple 2D vector graphic of a blue geometric bird on a green and blue background.",
+      "confidence": 0.95,
+      "status": "processed",
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1313,
+        "output_tokens": 53,
+        "thoughts_tokens": 533,
+        "total_tokens": 1899,
+        "estimated_cost": 0.0
+      }
     },
     {
-      "id": "bird_005",
-      "category": "bird",
       "filename": "bird_005.jpg",
       "path": "data/images/bird_005.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
+      "subject": "blue bird",
+      "category": "animal",
+      "attributes": [
+        "blue",
+        "geometric",
+        "yellow beak",
+        "minimalist",
+        "digital illustration"
+      ],
+      "caption": "Minimalist geometric vector illustration of a blue bird against a simple background.",
+      "confidence": 0.95,
+      "status": "processed",
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1313,
+        "output_tokens": 49,
+        "thoughts_tokens": 381,
+        "total_tokens": 1743,
+        "estimated_cost": 0.0
+      }
     },
     {
-      "id": "horse_001",
-      "category": "horse",
-      "filename": "horse_001.jpg",
-      "path": "data/images/horse_001.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "horse_002",
-      "category": "horse",
-      "filename": "horse_002.jpg",
-      "path": "data/images/horse_002.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "horse_003",
-      "category": "horse",
-      "filename": "horse_003.jpg",
-      "path": "data/images/horse_003.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "horse_004",
-      "category": "horse",
-      "filename": "horse_004.jpg",
-      "path": "data/images/horse_004.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "horse_005",
-      "category": "horse",
-      "filename": "horse_005.jpg",
-      "path": "data/images/horse_005.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "motorcycle_001",
-      "category": "motorcycle",
-      "filename": "motorcycle_001.jpg",
-      "path": "data/images/motorcycle_001.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "motorcycle_002",
-      "category": "motorcycle",
-      "filename": "motorcycle_002.jpg",
-      "path": "data/images/motorcycle_002.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "motorcycle_003",
-      "category": "motorcycle",
-      "filename": "motorcycle_003.jpg",
-      "path": "data/images/motorcycle_003.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "motorcycle_004",
-      "category": "motorcycle",
-      "filename": "motorcycle_004.jpg",
-      "path": "data/images/motorcycle_004.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "motorcycle_005",
-      "category": "motorcycle",
-      "filename": "motorcycle_005.jpg",
-      "path": "data/images/motorcycle_005.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
-    },
-    {
-      "id": "car_001",
-      "category": "car",
       "filename": "car_001.jpg",
       "path": "data/images/car_001.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
+      "subject": "red car",
+      "category": "vehicle",
+      "attributes": [
+        "red",
+        "black wheels",
+        "digital drawing"
+      ],
+      "caption": "Simple 2D drawing of a red car.",
+      "confidence": 0.98,
+      "status": "processed",
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1313,
+        "output_tokens": 40,
+        "thoughts_tokens": 462,
+        "total_tokens": 1815,
+        "estimated_cost": 0.0
+      }
     },
     {
-      "id": "car_002",
-      "category": "car",
       "filename": "car_002.jpg",
       "path": "data/images/car_002.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
+      "subject": "red car",
+      "category": "vehicle",
+      "attributes": [
+        "red",
+        "black wheels",
+        "flat color",
+        "simple illustration"
+      ],
+      "caption": "A simple illustration of a red car on a green surface under a blue sky.",
+      "confidence": 0.95,
+      "status": "processed",
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1313,
+        "output_tokens": 49,
+        "thoughts_tokens": 415,
+        "total_tokens": 1777,
+        "estimated_cost": 0.0
+      }
     },
     {
-      "id": "car_003",
-      "category": "car",
       "filename": "car_003.jpg",
       "path": "data/images/car_003.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
+      "subject": "red car",
+      "category": "vehicle",
+      "attributes": [
+        "red",
+        "minimalist",
+        "2D graphic",
+        "black wheels"
+      ],
+      "caption": "Minimalist illustration of a red car against a simple background.",
+      "confidence": 0.95,
+      "status": "processed",
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1313,
+        "output_tokens": 46,
+        "thoughts_tokens": 395,
+        "total_tokens": 1754,
+        "estimated_cost": 0.0
+      }
     },
     {
-      "id": "car_004",
-      "category": "car",
       "filename": "car_004.jpg",
       "path": "data/images/car_004.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
+      "subject": "car",
+      "category": "illustration",
+      "attributes": [
+        "brown body",
+        "black wheels",
+        "simple digital art",
+        "flat color"
+      ],
+      "caption": "Simple digital illustration of a brown car over green ground under a light blue sky.",
+      "confidence": 0.95,
+      "status": "processed",
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1313,
+        "output_tokens": 50,
+        "thoughts_tokens": 482,
+        "total_tokens": 1845,
+        "estimated_cost": 0.0
+      }
     },
     {
-      "id": "car_005",
-      "category": "car",
       "filename": "car_005.jpg",
       "path": "data/images/car_005.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
+      "subject": "car",
+      "category": "vehicle",
+      "attributes": [
+        "brown",
+        "black wheels",
+        "minimalist",
+        "digital illustration"
+      ],
+      "caption": "Simple digital illustration of a brown car against a blue and green background.",
+      "confidence": 0.95,
+      "status": "processed",
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1313,
+        "output_tokens": 46,
+        "thoughts_tokens": 474,
+        "total_tokens": 1833,
+        "estimated_cost": 0.0
+      }
     },
     {
-      "id": "mountain_001",
-      "category": "mountain",
+      "filename": "cat_001.jpg",
+      "path": "data/images/cat_001.jpg",
+      "subject": "cat",
+      "category": "animal",
+      "attributes": [
+        "gray",
+        "digital illustration",
+        "simple shapes",
+        "pointed ears"
+      ],
+      "caption": "A simple digital drawing of a gray cat sitting on green grass against a blue sky.",
+      "confidence": 0.95,
+      "status": "processed",
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1313,
+        "output_tokens": 49,
+        "thoughts_tokens": 483,
+        "total_tokens": 1845,
+        "estimated_cost": 0.0
+      }
+    },
+    {
+      "filename": "cat_002.jpg",
+      "path": "data/images/cat_002.jpg",
+      "subject": "cat",
+      "category": "animal",
+      "attributes": [
+        "gray",
+        "digital drawing",
+        "minimalist",
+        "geometric"
+      ],
+      "caption": "Simple digital illustration of a gray cat on a green and blue background.",
+      "confidence": 0.95,
+      "status": "processed",
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1313,
+        "output_tokens": 45,
+        "thoughts_tokens": 391,
+        "total_tokens": 1749,
+        "estimated_cost": 0.0
+      }
+    },
+    {
+      "filename": "cat_003.jpg",
+      "path": "data/images/cat_003.jpg",
+      "subject": "cat",
+      "category": "animal",
+      "attributes": [
+        "grey",
+        "minimalist",
+        "pointed ears",
+        "bent tail",
+        "green grass"
+      ],
+      "caption": "A simple graphic illustration of a grey cat sitting outdoors.",
+      "confidence": 0.95,
+      "status": "processed",
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1313,
+        "output_tokens": 46,
+        "thoughts_tokens": 513,
+        "total_tokens": 1872,
+        "estimated_cost": 0.0
+      }
+    },
+    {
+      "filename": "cat_004.jpg",
+      "path": "data/images/cat_004.jpg",
+      "subject": "cat",
+      "category": "animal",
+      "attributes": [
+        "grey cat",
+        "simple illustration",
+        "pointed ears",
+        "bent tail",
+        "green ground",
+        "blue sky"
+      ],
+      "caption": "A simple digital drawing of a grey cat sitting on green ground against a blue background.",
+      "confidence": 0.95,
+      "status": "processed",
+      "attempts": 3,
+      "usage": {
+        "prompt_tokens": 1313,
+        "output_tokens": 56,
+        "thoughts_tokens": 253,
+        "total_tokens": 1622,
+        "estimated_cost": 0.0
+      }
+    },
+    {
+      "filename": "cat_005.jpg",
+      "path": "data/images/cat_005.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 18.530085319s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '18s'}]}}"
+    },
+    {
+      "filename": "dog_001.jpg",
+      "path": "data/images/dog_001.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 13.055622409s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-3.6-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '13s'}]}}"
+    },
+    {
+      "filename": "dog_002.jpg",
+      "path": "data/images/dog_002.jpg",
+      "subject": "dog",
+      "category": "animal",
+      "attributes": [
+        "brown",
+        "simple digital drawing",
+        "pointed ears",
+        "bent tail",
+        "green grass",
+        "blue background"
+      ],
+      "caption": "Simple digital artwork of a brown dog sitting on a green surface against a light blue backdrop.",
+      "confidence": 0.95,
+      "status": "processed",
+      "attempts": 2,
+      "usage": {
+        "prompt_tokens": 1313,
+        "output_tokens": 57,
+        "thoughts_tokens": 562,
+        "total_tokens": 1932,
+        "estimated_cost": 0.0
+      }
+    },
+    {
+      "filename": "dog_003.jpg",
+      "path": "data/images/dog_003.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 59.13241068s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '59s'}]}}"
+    },
+    {
+      "filename": "dog_004.jpg",
+      "path": "data/images/dog_004.jpg",
+      "subject": "dog",
+      "category": "animal",
+      "attributes": [
+        "brown",
+        "minimalist",
+        "digital artwork",
+        "pointed ears",
+        "bent tail"
+      ],
+      "caption": "A simple geometric illustration of a brown dog sitting on green grass against a blue sky.",
+      "confidence": 0.95,
+      "status": "processed",
+      "attempts": 2,
+      "usage": {
+        "prompt_tokens": 1313,
+        "output_tokens": 52,
+        "thoughts_tokens": 374,
+        "total_tokens": 1739,
+        "estimated_cost": 0.0
+      }
+    },
+    {
+      "filename": "dog_005.jpg",
+      "path": "data/images/dog_005.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 44.984252378s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '44s'}]}}"
+    },
+    {
+      "filename": "fox_001.jpg",
+      "path": "data/images/fox_001.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 39.599388311s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '39s'}]}}"
+    },
+    {
+      "filename": "fox_002.jpg",
+      "path": "data/images/fox_002.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 34.12522233s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-3.6-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '34s'}]}}"
+    },
+    {
+      "filename": "fox_003.jpg",
+      "path": "data/images/fox_003.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 28.8858971s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '28s'}]}}"
+    },
+    {
+      "filename": "fox_004.jpg",
+      "path": "data/images/fox_004.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 23.594194589s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '23s'}]}}"
+    },
+    {
+      "filename": "fox_005.jpg",
+      "path": "data/images/fox_005.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 18.09177445s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '18s'}]}}"
+    },
+    {
+      "filename": "horse_001.jpg",
+      "path": "data/images/horse_001.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 12.95716123s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '12s'}]}}"
+    },
+    {
+      "filename": "horse_002.jpg",
+      "path": "data/images/horse_002.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 7.624064195s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '7s'}]}}"
+    },
+    {
+      "filename": "horse_003.jpg",
+      "path": "data/images/horse_003.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 2.443152221s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-3.6-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '2s'}]}}"
+    },
+    {
+      "filename": "horse_004.jpg",
+      "path": "data/images/horse_004.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 57.125793696s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '57s'}]}}"
+    },
+    {
+      "filename": "horse_005.jpg",
+      "path": "data/images/horse_005.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 51.873624004s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '51s'}]}}"
+    },
+    {
+      "filename": "motorcycle_001.jpg",
+      "path": "data/images/motorcycle_001.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 46.546247973s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-3.6-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '46s'}]}}"
+    },
+    {
+      "filename": "motorcycle_002.jpg",
+      "path": "data/images/motorcycle_002.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 40.580529113s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '40s'}]}}"
+    },
+    {
+      "filename": "motorcycle_003.jpg",
+      "path": "data/images/motorcycle_003.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 35.049632845s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '35s'}]}}"
+    },
+    {
+      "filename": "motorcycle_004.jpg",
+      "path": "data/images/motorcycle_004.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 29.626776993s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '29s'}]}}"
+    },
+    {
+      "filename": "motorcycle_005.jpg",
+      "path": "data/images/motorcycle_005.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 24.308092932s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '24s'}]}}"
+    },
+    {
       "filename": "mountain_001.jpg",
       "path": "data/images/mountain_001.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 19.015426866s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '19s'}]}}"
     },
     {
-      "id": "mountain_002",
-      "category": "mountain",
       "filename": "mountain_002.jpg",
       "path": "data/images/mountain_002.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 13.497868051s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '13s'}]}}"
     },
     {
-      "id": "mountain_003",
-      "category": "mountain",
       "filename": "mountain_003.jpg",
       "path": "data/images/mountain_003.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 8.376784495s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '8s'}]}}"
     },
     {
-      "id": "mountain_004",
-      "category": "mountain",
       "filename": "mountain_004.jpg",
       "path": "data/images/mountain_004.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 2.005727648s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '2s'}]}}"
     },
     {
-      "id": "mountain_005",
-      "category": "mountain",
       "filename": "mountain_005.jpg",
       "path": "data/images/mountain_005.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 55.778671866s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-3.6-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '55s'}]}}"
     },
     {
-      "id": "plain_001",
-      "category": "plain",
       "filename": "plain_001.jpg",
       "path": "data/images/plain_001.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 50.489938946s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-3.6-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '50s'}]}}"
     },
     {
-      "id": "plain_002",
-      "category": "plain",
       "filename": "plain_002.jpg",
       "path": "data/images/plain_002.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 45.390811459s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '45s'}]}}"
     },
     {
-      "id": "plain_003",
-      "category": "plain",
       "filename": "plain_003.jpg",
       "path": "data/images/plain_003.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 40.083453214s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-3.6-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '40s'}]}}"
     },
     {
-      "id": "plain_004",
-      "category": "plain",
       "filename": "plain_004.jpg",
       "path": "data/images/plain_004.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 34.418700218s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '34s'}]}}"
     },
     {
-      "id": "plain_005",
-      "category": "plain",
       "filename": "plain_005.jpg",
       "path": "data/images/plain_005.jpg",
-      "source": "synthetic-development",
-      "license": "Project-generated",
-      "resolution": "512x512"
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 29.408788185s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '29s'}]}}"
+    },
+    {
+      "filename": "wolf_001.jpg",
+      "path": "data/images/wolf_001.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 24.441949485s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '24s'}]}}"
+    },
+    {
+      "filename": "wolf_002.jpg",
+      "path": "data/images/wolf_002.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 19.471166996s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-3.6-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '19s'}]}}"
+    },
+    {
+      "filename": "wolf_003.jpg",
+      "path": "data/images/wolf_003.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 14.60033075s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '14s'}]}}"
+    },
+    {
+      "filename": "wolf_004.jpg",
+      "path": "data/images/wolf_004.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 9.779374401s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '9s'}]}}"
+    },
+    {
+      "filename": "wolf_005.jpg",
+      "path": "data/images/wolf_005.jpg",
+      "status": "failed",
+      "attempts": 3,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.6-flash\\nPlease retry in 4.527102488s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.6-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '4s'}]}}"
     }
   ],
   "category_counts": {
-    "fox": 5,
-    "wolf": 5,
-    "cat": 5,
-    "dog": 5,
-    "bird": 5,
-    "horse": 5,
-    "motorcycle": 5,
-    "car": 5,
-    "mountain": 5,
-    "plain": 5
+    "animal": 11,
+    "vehicle": 4,
+    "illustration": 1
+  },
+  "usage_summary": {
+    "prompt_tokens": 21008,
+    "output_tokens": 790,
+    "thoughts_tokens": 6870,
+    "total_tokens": 28668,
+    "estimated_cost": 0.0
   }
 }
