@@ -40,7 +40,29 @@ class MismatchGuard:
                 ),
             )
 
+        post_text_lower = post_text.lower()
+
+        subject_match = (
+            image_subject.strip().lower()
+            and image_subject.strip().lower() in post_text_lower
+        )
+
+        category_match = (
+            image_category.strip().lower()
+            and image_category.strip().lower() in post_text_lower
+        )
+
+        if not subject_match and not category_match:
+            return GuardResult(
+                accepted=False,
+                reason=(
+                    f"Post text does not mention the image subject "
+                    f"'{image_subject}' or category "
+                    f"'{image_category}'."
+                ),
+            )
+
         return GuardResult(
             accepted=True,
-            reason="Candidate passed similarity and confidence checks.",
+            reason="Candidate passed similarity, confidence, and metadata checks.",
         )
