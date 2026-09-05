@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     llm_provider: str = "gemini"
     llm_model: str = "gemini-2.5-flash"
     llm_api_key: str = ""
+    embedding_model: str = "gemini-embedding-2-preview"
 
     model_config = SettingsConfigDict(
         env_file=".env",
