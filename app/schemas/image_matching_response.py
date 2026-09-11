@@ -2,5 +2,7 @@ from pydantic import BaseModel, Field
 
 
 class ImageMatchingResponse(BaseModel):
-    relevance_score: float = Field(..., ge=0.0, le=1.0)
+    filename: str
+    score: float = Field(..., ge=-1.0, le=1.0)
+    accepted: bool
     explanation: str

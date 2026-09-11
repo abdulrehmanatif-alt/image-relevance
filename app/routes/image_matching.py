@@ -17,7 +17,6 @@ service = ImageMatchingService()
 @router.post("/match", response_model=ImageMatchingResponse)
 def match_image(request: ImageMatchingRequest):
     return service.analyze(
-        image_url=request.image_url,
         blog_content=request.blog_content,
     )
 
