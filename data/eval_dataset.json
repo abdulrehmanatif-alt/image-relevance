@@ -1,0 +1,44 @@
+{
+  "evaluations": [
+    {
+      "post": "A wild fox walking through a forest.",
+      "expected_category": "fox"
+    },
+    {
+      "post": "A wolf standing in a snowy forest.",
+      "expected_category": "wolf"
+    },
+    {
+      "post": "A domestic cat sitting on a sofa.",
+      "expected_category": "cat"
+    },
+    {
+      "post": "A dog playing in a park.",
+      "expected_category": "dog"
+    },
+    {
+      "post": "A colorful bird flying through the sky.",
+      "expected_category": "bird"
+    },
+    {
+      "post": "A horse running across a field.",
+      "expected_category": "horse"
+    },
+    {
+      "post": "A motorcycle traveling on a road.",
+      "expected_category": "motorcycle"
+    },
+    {
+      "post": "A car driving along a highway.",
+      "expected_category": "car"
+    },
+    {
+      "post": "A mountain landscape covered in snow.",
+      "expected_category": "mountain"
+    },
+    {
+      "post": "A wide plain stretching across the countryside.",
+      "expected_category": "plain"
+    }
+  ]
+}
