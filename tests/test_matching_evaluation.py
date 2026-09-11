@@ -53,7 +53,7 @@ def test_top_1_precision():
     print(f"\nTop-1 precision: {precision:.2%}")
     print(f"Correct: {correct}/{total}")
 
-    assert precision >= 0.0
+    assert precision == 1.0
 
 def test_forced_mismatch_is_rejected():
     with open("data/dataset.json", "r", encoding="utf-8") as file:
