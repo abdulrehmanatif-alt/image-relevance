@@ -191,6 +191,18 @@ def run_batch() -> None:
         and failed == 0
     )
 
+    failed_images = [
+        item["filename"]
+        for item in dataset["images"]
+        if item.get("status") == "failed"
+    ]
+
+    dataset["failure_alert"] = {
+        "triggered": len(failed_images) > 0,
+        "failed_count": len(failed_images),
+        "failed_images": failed_images,
+    }
+
     save_dataset(dataset)
 
     print()
