@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     debug: bool = True
 
     llm_provider: str = "gemini"
-    llm_model: str = "gemini-2.5-flash"
+    llm_model: str = "gemini-3.6-flash"
     llm_api_key: str = ""
     embedding_model: str = "gemini-embedding-2-preview"
     database_url: str = ""
