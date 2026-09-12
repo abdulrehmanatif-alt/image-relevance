@@ -3,7 +3,7 @@ import time
 from pathlib import Path
 
 from app.services.vision import VisionService
-
+from google.genai.errors import APIError
 
 DATASET_PATH = Path("data/dataset.json")
 IMAGE_DIR = Path("data/images")
@@ -66,11 +66,18 @@ def process_image(
                 None,
             )
 
-        except Exception as exc:
+        except APIError as exc:
             last_error = str(exc)
+
+            if exc.code not in (429, 500, 502, 503, 504):
+                break
 
             if attempt < MAX_RETRIES:
                 time.sleep(RETRY_DELAY_SECONDS)
+
+        except Exception as exc:
+            last_error = str(exc)
+            break
 
     return None, MAX_RETRIES, last_error
 
