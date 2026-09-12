@@ -1,13 +1,11 @@
-import json
-from pathlib import Path
+from sqlalchemy import select
+
+from app.database import SessionLocal
+from app.models import Image
 
 from app.services.post_embedding_service import PostEmbeddingService
 from app.services.similarity_service import cosine_similarity
 from app.services.mismatch_guard import MismatchGuard
-
-
-EMBEDDINGS_FILE = Path("data/image_embeddings.json")
-DATASET_FILE = Path("data/dataset.json")
 
 
 class MatchingService:
@@ -15,16 +13,29 @@ class MatchingService:
         self.post_embedding_service = PostEmbeddingService()
         self.mismatch_guard = MismatchGuard()
 
-        with open(EMBEDDINGS_FILE, "r", encoding="utf-8") as file:
-            self.image_embeddings = json.load(file)
+        with SessionLocal() as db:
+            images = db.scalars(
+                select(Image).where(
+                    Image.embedding.is_not(None)
+                )
+            ).all()
 
-        with open(DATASET_FILE, "r", encoding="utf-8") as file:
-            dataset = json.load(file)
+            self.image_embeddings = [
+                {
+                    "filename": image.filename,
+                    "embedding": image.embedding,
+                }
+                for image in images
+            ]
 
-        self.image_metadata = {
-            image["filename"]: image
-            for image in dataset["images"]
-        }
+            self.image_metadata = {
+                image.filename: {
+                    "subject": image.subject or "",
+		    "category": image.category or "",
+		    "confidence": image.confidence if image.confidence is not None else 0.0,
+                }
+                for image in images
+            }
 
     def rank_images(self, post_text: str) -> list[dict]:
         post_embedding = self.post_embedding_service.embed_post(post_text)
