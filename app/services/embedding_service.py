@@ -12,6 +12,12 @@ class EmbeddingService:
         self.cost_service = AICostService()
 
     def embed_text(self, text: str) -> list[float]:
+        if not self.cost_service.check_budget(
+            settings.ai_call_budget_estimate
+        ):
+            raise RuntimeError(
+                "AI budget limit exceeded."
+            )
         response = self.client.models.embed_content(
             model=self.model,
             contents=text,
@@ -35,6 +41,13 @@ class EmbeddingService:
     def embed_image(self, image_path: str) -> list[float]:
         with open(image_path, "rb") as image_file:
             image_bytes = image_file.read()
+
+        if not self.cost_service.check_budget(
+            settings.ai_call_budget_estimate
+        ):
+            raise RuntimeError(
+                "AI budget limit exceeded."
+            )
 
         response = self.client.models.embed_content(
             model=self.model,
