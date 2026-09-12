@@ -10,6 +10,8 @@ class Settings(BaseSettings):
     llm_api_key: str = ""
     embedding_model: str = "gemini-embedding-2-preview"
     database_url: str = ""
+    ai_budget_limit: float = 1.0
+    ai_call_budget_estimate: float = 0.01
 
     model_config = SettingsConfigDict(
         env_file=".env",

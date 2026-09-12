@@ -6,6 +6,7 @@ from google.genai import types
 
 from app.config import settings
 from app.schemas.image import ImageUnderstanding
+from app.services.ai_cost_service import AICostService
 
 
 class VisionService:
@@ -16,6 +17,7 @@ class VisionService:
         self.client = genai.Client(
             api_key=settings.llm_api_key
         )
+        self.cost_service = AICostService()
 
     def understand_image(
         self,
@@ -55,6 +57,13 @@ Rules:
 - Do not include additional fields.
 """
 
+        if not self.cost_service.check_budget(
+            settings.ai_call_budget_estimate
+        ):
+            raise RuntimeError(
+                "AI budget limit exceeded."
+            )
+
         response = self.client.models.generate_content(
             model=settings.llm_model,
             contents=[
@@ -76,15 +85,42 @@ Rules:
 
         usage = response.usage_metadata
 
+        input_tokens = (
+            usage.prompt_token_count
+            if usage
+            else None
+        )
+
+        output_tokens = (
+            usage.candidates_token_count
+            if usage
+            else None
+        )
+
+        estimated_cost = self.cost_service.estimate_cost(
+            input_tokens,
+            output_tokens,
+        )
+
+        self.cost_service.record_call(
+            operation="vision",
+            provider="gemini",
+            model=settings.llm_model,
+            input_tokens=input_tokens,
+            output_tokens=output_tokens,
+            estimated_cost=estimated_cost,
+            success=True,
+        )
+
         usage_data = {
             "prompt_tokens": (
-                usage.prompt_token_count
-                if usage
+                input_tokens
+                if input_tokens is not None
                 else 0
             ),
             "output_tokens": (
-                usage.candidates_token_count
-                if usage
+                output_tokens
+                if output_tokens is not None
                 else 0
             ),
             "thoughts_tokens": (
@@ -97,7 +133,7 @@ Rules:
                 if usage
                 else 0
             ),
-            "estimated_cost": 0.0,
+            "estimated_cost": estimated_cost,
         }
 
         return result, usage_data

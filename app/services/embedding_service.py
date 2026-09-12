@@ -2,12 +2,14 @@ from google import genai
 from google.genai import types
 
 from app.config import settings
+from app.services.ai_cost_service import AICostService
 
 
 class EmbeddingService:
     def __init__(self):
         self.client = genai.Client(api_key=settings.llm_api_key)
         self.model = settings.embedding_model
+        self.cost_service = AICostService()
 
     def embed_text(self, text: str) -> list[float]:
         response = self.client.models.embed_content(
@@ -16,6 +18,16 @@ class EmbeddingService:
             config=types.EmbedContentConfig(
                 output_dimensionality=768,
             ),
+        )
+
+        self.cost_service.record_call(
+            operation="text_embedding",
+            provider="gemini",
+            model=self.model,
+            input_tokens=None,
+            output_tokens=None,
+            estimated_cost=0.0,
+            success=True,
         )
 
         return response.embeddings[0].values
@@ -35,6 +47,16 @@ class EmbeddingService:
             config=types.EmbedContentConfig(
                 output_dimensionality=768,
             ),
+        )
+
+        self.cost_service.record_call(
+            operation="image_embedding",
+            provider="gemini",
+            model=self.model,
+            input_tokens=None,
+            output_tokens=None,
+            estimated_cost=0.0,
+            success=True,
         )
 
         return response.embeddings[0].values
