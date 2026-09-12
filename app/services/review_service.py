@@ -1,23 +1,58 @@
+from sqlalchemy import select
+
+from app.database import SessionLocal
+from app.models import Review
 from app.schemas.review import ImageReviewRequest, ImageReviewResponse
 
 
 class ReviewService:
-    def __init__(self):
-        self.reviews: dict[str, ImageReviewResponse] = {}
-
     def save_review(
         self,
         review: ImageReviewRequest,
     ) -> ImageReviewResponse:
-        response = ImageReviewResponse(
-            filename=review.filename,
-            decision=review.decision,
-            feedback=review.feedback,
-        )
+        with SessionLocal() as db:
+            existing = db.scalar(
+                select(Review).where(
+                    Review.filename == review.filename
+                )
+            )
 
-        self.reviews[review.filename] = response
+            if existing:
+                existing.decision = review.decision
+                existing.feedback = review.feedback
+            else:
+                db.add(
+                    Review(
+                        filename=review.filename,
+                        decision=review.decision,
+                        feedback=review.feedback,
+                    )
+                )
 
-        return response
+            db.commit()
 
-    def get_review(self, filename: str) -> ImageReviewResponse | None:
-        return self.reviews.get(filename)
+            return ImageReviewResponse(
+                filename=review.filename,
+                decision=review.decision,
+                feedback=review.feedback,
+            )
+
+    def get_review(
+        self,
+        filename: str,
+    ) -> ImageReviewResponse | None:
+        with SessionLocal() as db:
+            review = db.scalar(
+                select(Review).where(
+                    Review.filename == filename
+                )
+            )
+
+            if not review:
+                return None
+
+            return ImageReviewResponse(
+                filename=review.filename,
+                decision=review.decision,
+                feedback=review.feedback,
+            )

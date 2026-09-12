@@ -47,3 +47,14 @@ class Image(Base):
         Text,
         nullable=True,
     )
+
+class Review(Base):
+    __tablename__ = "reviews"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    filename: Mapped[str] = mapped_column(String(255), unique=True, index=True)
+    decision: Mapped[str] = mapped_column(String(50))
+    feedback: Mapped[str | None] = mapped_column(
+        Text,
+        nullable=True,
+    )
