@@ -99,6 +99,19 @@ def process_image(
         except APIError as exc:
             last_error = str(exc)
 
+            # Daily quota exhaustion will not be fixed by retrying.
+            error_text = str(exc).lower()
+
+            if (
+                exc.code == 429
+                and (
+                    "perday" in error_text
+                    or "daily" in error_text
+                    or "generate_requests_per_day" in error_text
+                )
+            ):
+                break
+
             if exc.code not in (429, 500, 502, 503, 504):
                 break
 
