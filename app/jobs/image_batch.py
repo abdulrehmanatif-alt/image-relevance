@@ -2,8 +2,12 @@ import json
 import time
 from pathlib import Path
 
-from app.services.vision import VisionService
 from google.genai.errors import APIError
+from sqlalchemy import select
+
+from app.database import SessionLocal
+from app.models import Image
+from app.services.vision import VisionService
 
 DATASET_PATH = Path("data/dataset.json")
 IMAGE_DIR = Path("data/images")
@@ -37,6 +41,32 @@ def find_existing(dataset: dict, filename: str) -> dict | None:
             return item
 
     return None
+
+
+
+def save_image_to_db(item: dict) -> None:
+    with SessionLocal() as db:
+        image = db.scalar(
+            select(Image).where(
+                Image.filename == item["filename"]
+            )
+        )
+
+        if image is None:
+            image = Image(
+                filename=item["filename"],
+            )
+            db.add(image)
+
+        image.status = item["status"]
+        image.subject = item.get("subject")
+        image.category = item.get("category")
+        image.attributes = item.get("attributes")
+        image.caption = item.get("caption")
+        image.confidence = item.get("confidence")
+        image.error = item.get("error")
+
+        db.commit()
 
 
 def process_image(
@@ -114,6 +144,7 @@ def run_batch() -> None:
                 dataset["images"].remove(existing)
 
             dataset["images"].append(result)
+            save_image_to_db(result)
 
             print(
                 f"  OK: {result['subject']} "
@@ -135,6 +166,7 @@ def run_batch() -> None:
                 dataset["images"].remove(existing)
 
             dataset["images"].append(failure)
+            save_image_to_db(failure)
 
             print(f"  FAILED: {error}")
 
