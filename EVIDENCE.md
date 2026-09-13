@@ -11,19 +11,12 @@ The image matching system was evaluated against a labeled dataset containing 10 
 
 
 | Metric | Result |
-
 |---|---:|
-
 | Evaluation cases | 10 |
-
 | Correct predictions | 10 |
-
 | Top-1 precision | 100% |
-
-| Full test suite | 8/8 passed |
-
+| Full test suite | 9/9 passed |
 | Forced mismatch | Rejected |
-
 
 
 \## Top-1 Evaluation Results
@@ -154,7 +147,7 @@ The current evaluation is intentionally small and uses 10 labeled posts over the
 
 
 
-The dataset contains 50 images, but only a subset currently has successful Gemini vision metadata because of free-tier model quota limitations encountered during dataset processing.
+The dataset contains 50 images. At the time of evaluation, 16/50 images had successful Gemini vision metadata and 34/50 failed during vision processing because the Gemini free-tier daily request quota was exhausted. The batch job records these failures in both the dataset evidence and PostgreSQL, and quota exhaustion is handled without unnecessary retries.
 
 
 
@@ -175,10 +168,6 @@ Future improvements include:
 \- Threshold tuning using validation data
 
 \- Human review workflow
-
-\- Persistent review decisions
-
-\- PostgreSQL-backed metadata storage
 
 \- More robust semantic mismatch detection
 
