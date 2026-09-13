@@ -122,7 +122,7 @@ def process_image(
             last_error = str(exc)
             break
 
-    return None, MAX_RETRIES, last_error
+    return None, attempt, last_error
 
 
 def run_batch() -> None:
