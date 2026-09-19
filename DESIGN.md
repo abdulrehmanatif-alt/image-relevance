@@ -1,4 +1,4 @@
-# AI Image Understanding & Content Matching Engine
+﻿# AI Image Understanding & Content Matching Engine
 
 ## 1. Problem
 
@@ -45,306 +45,396 @@ The project intentionally focuses on a reliable backend rather than building a f
 | Embeddings                 | Gemini embeddings |
 | Validation                 | Pydantic          |
 | Database                   | PostgreSQL        |
-| Local database environment | Docker            |
+| Local database environment | PostgreSQL        |
 | Configuration              | `.env`            |
 | Source control             | Git + GitHub      |
 
-The project must remain compatible with the capstone requirement of **$0 / no credit card**. API usage will therefore be kept within the available free-tier limits and recorded through the AI cost log.
+The project must remain compatible with the capstone requirement of **$0 / no credit card**. AI usage is therefore planned around available free-tier resources, while the system records AI calls, usage information, and estimated costs for monitoring.
+
+Free-tier quota limits may restrict how quickly the development dataset can be processed. Such quota failures are recorded as processing failures rather than being treated as successful results.
 
 ---
 
 ## 4. Image Metadata Schema
 
-Each processed image will produce structured metadata.
+The system stores structured metadata for each image after vision processing.
 
-### Image
+The metadata is represented using Pydantic validation before being persisted to the database.
 
-* `id` — UUID primary key
-* `filename` — original filename
-* `path` — local/storage path
-* `subject` — primary detected subject
-* `category` — broad category such as `animal`, `vehicle`, `food`, `landscape`
-* `attributes` — structured list of relevant attributes
-* `caption` — human-readable description
-* `confidence` — vision-model confidence from `0.0` to `1.0`
-* `status` — processing state
-* `created_at`
-* `updated_at`
+### Image Understanding Schema
+
+```text
+subject       string
+category      string
+attributes    list
+caption       string
+confidence    float
+```
+
+The `confidence` value must be between `0.0` and `1.0`.
+
+The validated metadata is stored in the corresponding fields of the `images` table:
+
+```text
+subject
+category
+attributes
+caption
+confidence
+```
+
+Additional processing state is stored in:
+
+```text
+status
+embedding
+error
+```
 
 ### Processing Status
 
-Allowed image processing states:
+The `images.status` field tracks the outcome of image processing.
+
+The processing pipeline uses:
 
 ```text
-pending
-processing
-completed
+processed
 failed
-review_required
 ```
 
-A failed or low-confidence image must never be silently treated as successfully processed.
+The database model uses `pending` as the default status for newly created image records before processing begins.
+
+A failed image must never be silently treated as successfully processed. The `error` field stores failure information when processing does not complete successfully.
+
+The current implementation uses an integer database ID and a unique `filename` to identify each image. It does not store separate creation or update timestamps.
 
 ---
 
 ## 5. Database Design
 
-PostgreSQL will provide persistent storage.
+PostgreSQL provides persistent storage for image metadata, human review decisions, and AI operation logs.
 
 ### Tables
 
 #### `images`
 
 ```text
-id                  UUID PRIMARY KEY
-filename            TEXT NOT NULL
-path                TEXT NOT NULL UNIQUE
-subject             TEXT
-category            TEXT
-attributes          JSONB
-caption             TEXT
-confidence          NUMERIC
-status              TEXT NOT NULL
-created_at          TIMESTAMP
-updated_at          TIMESTAMP
+id            INTEGER PRIMARY KEY
+filename      VARCHAR(255) NOT NULL UNIQUE
+status        VARCHAR(50) NOT NULL
+subject       VARCHAR(100)
+category      VARCHAR(100)
+attributes    JSONB
+caption       TEXT
+confidence    FLOAT
+embedding     JSONB
+error         TEXT
 ```
 
-Constraints:
+The `images` table stores the complete state of each processed image.
+
+Constraints and behavior:
 
 * `id` is the primary key.
-* `path` is unique to support idempotent ingestion.
-* `confidence`, when present, must be between `0.0` and `1.0`.
-* `status` must use one of the defined processing states.
-
-#### `image_vectors`
-
-```text
-id                  UUID PRIMARY KEY
-image_id            UUID NOT NULL REFERENCES images(id)
-embedding           JSONB
-created_at          TIMESTAMP
-```
-
-Constraints:
-
-* `image_id` is unique so the same image is not embedded repeatedly.
-* The embedding belongs to exactly one image.
-
-The initial dataset is only approximately 50 images, so a dedicated vector database is unnecessary. Embeddings can be persisted in PostgreSQL while similarity calculations are performed by the application.
-
-#### `posts`
-
-```text
-id                  UUID PRIMARY KEY
-title               TEXT NOT NULL
-content             TEXT NOT NULL
-created_at          TIMESTAMP
-updated_at          TIMESTAMP
-```
-
-#### `post_vectors`
-
-```text
-id                  UUID PRIMARY KEY
-post_id             UUID NOT NULL REFERENCES posts(id)
-embedding           JSONB
-created_at          TIMESTAMP
-```
-
-Constraints:
-
-* `post_id` is unique so a post has at most one current embedding.
-
-#### `suggestions`
-
-```text
-id                  UUID PRIMARY KEY
-post_id             UUID NOT NULL REFERENCES posts(id)
-image_id            UUID NOT NULL REFERENCES images(id)
-similarity_score    NUMERIC
-guard_status        TEXT NOT NULL
-guard_reason        TEXT
-created_at          TIMESTAMP
-```
-
-Constraints:
-
-* `(post_id, image_id)` is unique to prevent duplicate suggestions for the same pairing.
-* `similarity_score` must be between `0.0` and `1.0`.
-* `guard_status` is one of:
-
-```text
-accepted
-rejected
-no_confident_match
-review_required
-```
+* `filename` is unique to prevent duplicate image records.
+* `status` tracks the image processing state.
+* `confidence`, when present, represents the vision model's confidence.
+* `embedding` stores the generated image embedding.
+* `error` stores failure information when image processing does not complete successfully.
 
 #### `reviews`
 
 ```text
-id                  UUID PRIMARY KEY
-suggestion_id       UUID NOT NULL REFERENCES suggestions(id)
-decision            TEXT NOT NULL
-created_at          TIMESTAMP
+id            INTEGER PRIMARY KEY
+filename      VARCHAR(255) NOT NULL UNIQUE
+decision      VARCHAR(50) NOT NULL
+feedback      TEXT
 ```
 
-Allowed decisions:
+The `reviews` table stores human review decisions for processed images.
+
+Constraints and behavior:
+
+* `id` is the primary key.
+* `filename` uniquely identifies the reviewed image.
+* `decision` stores the review outcome.
+* `feedback` optionally stores additional reviewer comments.
+
+#### `ai_calls`
 
 ```text
-approved
-rejected
+id              INTEGER PRIMARY KEY
+operation       VARCHAR(100) NOT NULL
+provider        VARCHAR(50) NOT NULL
+model           VARCHAR(100) NOT NULL
+input_tokens    INTEGER
+output_tokens   INTEGER
+estimated_cost  FLOAT NOT NULL
+success         BOOLEAN NOT NULL
+error           TEXT
 ```
 
-#### `ai_cost_logs`
+The `ai_calls` table records AI operations for observability, reliability tracking, and cost monitoring.
 
-```text
-id                  UUID PRIMARY KEY
-operation            TEXT NOT NULL
-model                TEXT NOT NULL
-item_id              UUID
-input_tokens        INTEGER
-output_tokens       INTEGER
-estimated_cost      NUMERIC
-created_at          TIMESTAMP
-```
+Constraints and behavior:
 
-The cost log records every billable AI operation for observability and evaluation.
+* `id` is the primary key.
+* `operation` identifies the type of AI operation performed.
+* `provider` identifies the AI provider.
+* `model` identifies the model used.
+* `input_tokens` and `output_tokens` record token usage when available.
+* `estimated_cost` records the estimated cost of the operation.
+* `success` indicates whether the AI operation completed successfully.
+* `error` stores failure information when an AI operation fails.
+
+The current implementation intentionally keeps image embeddings in the `images` table rather than maintaining a separate vector table or dedicated vector database. This is sufficient for the approximately 50-image development dataset and keeps the architecture simple.
 
 ---
 
 ## 6. Database Relationships
 
-The main relationships are:
+The current implementation keeps the database relationships intentionally simple.
 
 ```text
-Image 1 ───────────── 1 ImageVector
+Image processing
+      │
+      ▼
+   images
+      │
+      │ filename
+      ▼
+   reviews
 
-Post  1 ───────────── 1 PostVector
-
-Post  1 ───────────── * Suggestion * ───────────── 1 Image
-
-Suggestion 1 ──────── * Review
-
-AI operations ──────── * AI CostLog
+AI operations
+      │
+      ▼
+   ai_calls
 ```
+The `reviews.filename` field identifies the image being reviewed, while `ai_calls` independently records AI operations performed by the system.
 
-Foreign keys will enforce referential integrity.
+The current implementation does not use separate tables for image vectors, posts, post vectors, or suggestions. Image embeddings are stored directly in the `images.embedding` field.
 
-Indexes will be added to frequently queried fields such as:
+Indexes are used on frequently queried fields:
 
+* `images.filename`
 * `images.status`
 * `images.subject`
 * `images.category`
-* `suggestions.post_id`
-* `suggestions.image_id`
-* `suggestions.guard_status`
-* `ai_cost_logs.operation`
+* `reviews.filename`
+* `ai_calls.operation`
+* `ai_calls.success`
 
-PostgreSQL primary keys, unique constraints, check constraints, and foreign keys will be used to enforce data integrity.
+PostgreSQL primary keys and unique constraints are used to maintain data integrity. The `filename` uniqueness constraints prevent duplicate image and review records.
 
 ---
 
 ## 7. Idempotency
 
-Image processing and embedding generation must be safe to retry.
+Image processing is designed to be safe to retry without creating duplicate image records.
 
-The system will use stable identifiers such as the image path and database IDs to prevent duplicate processing.
+The system uses the image `filename` and existing database or dataset state to maintain consistent processing state.
 
 Rules:
 
-1. An image with an existing unique `path` will not create another image record.
-2. An image with a completed vision result will not be processed again unless explicitly requested.
-3. An image with an existing vector will not receive a duplicate vector.
-4. A `(post_id, image_id)` suggestion pair will be unique.
-5. Retrying a failed job will update the existing record rather than create a duplicate.
+1. An image with an existing unique `filename` will not create another image record in PostgreSQL.
 
-This allows background jobs to be safely retried after transient failures.
+2. An image that is already marked as successfully processed in the dataset is skipped by the batch job.
+
+3. Retrying a failed image-processing job updates the existing dataset record rather than creating a duplicate entry.
+
+4. The corresponding PostgreSQL `images` record is updated using its unique `filename`.
+
+5. AI operations are recorded in the `ai_calls` table when they are recorded by the relevant AI service.
+
+The current batch-processing implementation does not use the presence of an embedding as an independent duplicate-prevention condition. Image embedding generation is handled separately from the vision batch job.
+
+This allows the image-processing batch to be safely rerun while keeping image records and dataset entries associated with a unique filename.
 
 ---
 
 ## 8. API Surface
 
-The backend will expose endpoints for:
+The backend exposes versioned REST endpoints under `/api/v1`.
+
+### Health
 
 ```text
-GET  /health
-
-POST /images/process
-
-POST /jobs/images
-
-POST /posts
-
-GET  /posts/{post_id}/images
-
-GET  /suggestions/{suggestion_id}
-
-POST /suggestions/{suggestion_id}/approve
-
-POST /suggestions/{suggestion_id}/reject
-
-POST /eval
+GET /health
 ```
 
-All invalid client input should produce an appropriate **4xx response** rather than an unhandled `500` error.
+Returns the health status of the application.
+
+### Image Matching
+
+```text
+POST /api/v1/match
+```
+
+Accepts blog content and runs the image matching analysis.
+
+```text
+GET /api/v1/test
+```
+
+Provides a simple route-level connectivity check for the image matching router.
+
+### Background Image Processing
+
+```text
+POST /api/v1/jobs/image-batch
+```
+
+Starts the image batch-processing job as a FastAPI background task.
+
+The endpoint immediately returns a job-started response while image processing continues in the background.
+
+### Human Review
+
+```text
+POST /api/v1/review
+```
+
+Submits a human review decision for an image.
+
+```text
+GET /api/v1/review/{filename}
+```
+
+Retrieves the stored review for a specific image filename.
+
+If no review exists, the endpoint returns a rejected response indicating that no review has been submitted.
+
+### Evaluation
+
+```text
+GET /api/v1/evaluation
+```
+
+Runs the evaluation service and returns the current evaluation result.
+
+All request and response schemas are validated using Pydantic models where applicable.
+
+Invalid client input should produce an appropriate `4xx` response rather than an unhandled `500` error.
 
 ---
 
 ## 9. Architecture
 
+The system follows a layered backend architecture with separate API, processing, matching, validation, and persistence responsibilities.
+
 ```text
-                         ┌──────────────────────┐
-                         │       FastAPI        │
-                         │      HTTP Layer      │
-                         └──────────┬───────────┘
-                                    │
-                    ┌───────────────┴───────────────┐
-                    │                               │
-          ┌─────────▼─────────┐          ┌──────────▼─────────┐
-          │ Image Pipeline    │          │ Matching Engine    │
-          │ Service           │          │ Service            │
-          └─────────┬─────────┘          └──────────┬─────────┘
-                    │                               │
-          ┌─────────▼─────────┐          ┌──────────▼─────────┐
-          │ Gemini Vision     │          │ Gemini Embeddings  │
-          └─────────┬─────────┘          └──────────┬─────────┘
-                    │                               │
-                    └───────────────┬───────────────┘
-                                    │
-                         ┌──────────▼───────────┐
-                         │     PostgreSQL       │
-                         │                     │
-                         │ images              │
-                         │ posts               │
-                         │ vectors             │
-                         │ suggestions         │
-                         │ reviews             │
-                         │ AI cost logs        │
-                         └──────────┬───────────┘
-                                    │
-                         ┌──────────▼───────────┐
-                         │   Mismatch Guard     │
-                         │                     │
-                         │ similarity          │
-                         │ subject/category    │
-                         │ confidence           │
-                         │ thresholds          │
-                         └─────────────────────┘
+                         ┌─────────────────────────┐
+                         │        FastAPI          │
+                         │       HTTP Layer        │
+                         └────────────┬────────────┘
+                                      │
+                    ┌─────────────────┼─────────────────┐
+                    │                 │                 │
+                    ▼                 ▼                 ▼
+             Image Matching        Jobs              Review
+                Routes             Routes             Routes
+                    │                 │                 │
+                    ▼                 ▼                 ▼
+           ImageMatchingService   Image Batch      ReviewService
+                                      Processing
+                    │                 │
+                    ▼                 │
+             MatchingService          │
+                    │                 │
+          ┌─────────┼─────────┐       │
+          │         │         │       │
+          ▼         ▼         ▼       ▼
+       Post      Similarity  Mismatch  Vision /
+     Embedding    Service     Guard   Embedding
+       Service                         Services
+          │         │         │         │
+          └─────────┴─────────┴─────────┘
+                         │
+                         ▼
+                ┌──────────────────┐
+                │    PostgreSQL    │
+                │                  │
+                │ images           │
+                │ reviews          │
+                │ ai_calls         │
+                └──────────────────┘
 ```
 
-Slow vision and embedding operations will run through background batch processing rather than blocking normal API requests.
+### Image Processing Flow
+
+The vision batch pipeline performs image understanding and metadata persistence:
+
+```text
+Image
+  ↓
+Vision Processing
+  ↓
+Pydantic Validation
+  ↓
+Persist Image Metadata
+  ↓
+Mark Processed / Failed
+```
+
+Image embeddings are generated by a separate embedding pipeline using the configured Gemini embedding service. The generated 768-dimensional embeddings are stored directly in the PostgreSQL `images.embedding` field.
+
+The matching engine loads these stored embeddings from PostgreSQL when constructing image candidates. The current development dataset contains 50 images with successfully generated embeddings.
+
+### Matching Flow
+
+A blog post is processed through the matching pipeline:
+
+```text
+Blog Content
+     ↓
+PostEmbeddingService
+     ↓
+Post Embedding
+     ↓
+Cosine Similarity
+     ↓
+Candidate Images
+     ↓
+MismatchGuard
+     ↓
+Accepted / Rejected Candidates
+     ↓
+Rank by Acceptance + Similarity
+     ↓
+Best Accepted Image
+```
+
+`MatchingService` loads processed images that have embeddings stored in PostgreSQL. It calculates cosine similarity between the blog-post embedding and each stored image embedding.
+
+The `MismatchGuard` then checks the similarity threshold and, when image metadata is available, validates image confidence and whether the image subject or category is mentioned in the blog content.
+
+`ImageMatchingService` returns the highest-ranked accepted image. If no candidate passes the mismatch guard, the API returns a rejection response instead of selecting an image.
+
+
+### Evaluation and Human Review
+
+The evaluation and review components operate through their own API routes and services:
+
+```text
+Evaluation Route → EvaluationService
+
+Review Route     → ReviewService
+```
+
+Human review decisions are persisted in the `reviews` table, while AI operations are recorded in the `ai_calls` table.
+
+This architecture keeps image processing, matching, mismatch protection, evaluation, and human review separated into focused services while using PostgreSQL as the persistent application data layer.
 
 ---
 
 ## 10. Image Understanding Pipeline
 
-Each image follows this pipeline:
+Each image is processed through a vision-understanding pipeline that validates the model output before storing the result.
 
 ```text
 Image
   ↓
-Validate input
+Validate image exists
   ↓
 Gemini Vision
   ↓
@@ -352,20 +442,14 @@ Structured JSON
   ↓
 Pydantic validation
   ↓
-Confidence check
-  ↓
 Persist metadata
   ↓
-Generate image embedding
-  ↓
-Persist embedding
-  ↓
-Mark processing complete
+Mark as processed / failed
 ```
 
-Gemini's multimodal capabilities support image understanding tasks such as image captioning and classification, while structured output can constrain model responses to a defined schema.
+The vision service uses Gemini with a structured response schema based on the `ImageUnderstanding` Pydantic model.
 
-The vision response will contain at minimum:
+The vision response contains:
 
 ```json
 {
@@ -381,351 +465,823 @@ The vision response will contain at minimum:
 }
 ```
 
-The application will validate this response using Pydantic before persistence.
+The application validates the response using Pydantic before the metadata is persisted.
+
+### Image Metadata Persistence
+
+For a successfully processed image, the following fields are stored in the `images` table:
+
+```text
+subject
+category
+attributes
+caption
+confidence
+status
+error
+```
+
+The processing status is set to:
+
+```text
+processed
+```
+
+when vision processing succeeds.
+
+If processing fails after the retry policy is exhausted, the image is stored with:
+
+```text
+status = failed
+```
+
+and the failure information is stored in the `error` field.
+
+### Image Embeddings
+
+Image embeddings are generated by the image embedding pipeline using the configured Gemini embedding service.
+
+The current pipeline performs:
+
+```text
+Image
+  ↓
+Gemini Embedding Service
+  ↓
+768-dimensional Image Embedding
+  ↓
+PostgreSQL images.embedding
+```
+
+Each generated embedding is stored directly in the `embedding` field of the corresponding PostgreSQL `images` record.
+
+The image embedding pipeline matches images to existing database records using their unique filenames. This allows the matching service to load the stored image embeddings directly from PostgreSQL.
+
+The current implementation has successfully generated embeddings for all 50 development images, with each embedding containing 768 dimensions.
+
+### AI Usage Tracking
+
+Successful vision operations record AI usage information including:
+
+```text
+prompt tokens
+output tokens
+thoughts tokens
+total tokens
+estimated cost
+```
+
+AI operations are also recorded in the PostgreSQL `ai_calls` table for observability and cost tracking.
+
+### Batch Processing
+
+The background image batch job processes `.jpg` images in `data/images`.
+
+For each image, the job:
+
+1. Checks whether the image has already been successfully processed.
+2. Sends the image to the Gemini vision service.
+3. Retries supported transient API failures up to three attempts.
+4. Stores successful metadata in PostgreSQL.
+5. Records failed images and their error information.
+6. Updates dataset statistics and usage information.
+7. Persists the updated dataset state to `data/dataset.json`.
+
+Already processed images are skipped, allowing the batch job to be safely rerun without unnecessarily repeating successful vision processing.
 
 ---
 
 ## 11. Confidence Handling
 
-Confidence will be represented as a value from `0.0` to `1.0`.
+The vision model's confidence value represents the confidence of the generated image metadata.
 
-Initial policy:
+The value is validated by the `ImageUnderstanding` Pydantic schema and must be within:
+
+```text
+0.0 <= confidence <= 1.0
+```
+
+The current mismatch guard uses a minimum confidence threshold of:
+
+```text
+MIN_CONFIDENCE = 0.80
+```
+
+During matching:
 
 ```text
 confidence >= 0.80
-    → eligible for normal matching
+    → eligible for metadata-based matching
 
-0.60 <= confidence < 0.80
-    → review_required
-
-confidence < 0.60
-    → rejected from automatic matching
+confidence < 0.80
+    → rejected by the mismatch guard
 ```
 
-These thresholds are configuration values and can be adjusted during evaluation.
+The confidence check is applied when image subject or category metadata is available.
 
-Low-confidence classifications will never be silently treated as reliable matches.
+A low-confidence image is therefore not automatically accepted as a valid match.
+
+The threshold is currently implemented as a class constant in the mismatch guard and can be adjusted in the implementation when required for evaluation.
 
 ---
 
 ## 12. Background Processing
 
-Vision processing and embedding generation are slow bulk operations, so they will run through background jobs.
+Image understanding is executed as a background batch-processing job so that multiple images can be processed without requiring a separate request for each image.
 
-The batch system will provide:
+The batch job is started through:
 
-* Progress tracking.
-* Retries for transient failures.
-* Idempotent processing.
-* Failure visibility.
-* Per-call AI cost tracking.
-* No duplicate processing.
-* Final success/failure status.
+```text
+POST /api/v1/jobs/image-batch
+```
+
+The processing flow is:
+
+```text
+Start Batch Job
+      ↓
+Load dataset
+      ↓
+Find .jpg images
+      ↓
+Check existing processing status
+      ↓
+Skip already processed images
+      ↓
+Process image with Gemini Vision
+      ↓
+Retry transient API failures
+      ↓
+Store result or failure
+      ↓
+Update dataset.json
+      ↓
+Calculate usage and dataset statistics
+      ↓
+Save final batch state
+```
 
 ### Retry Policy
 
-Transient failures may be retried up to **3 times** using increasing delays.
+The image-processing job allows up to **3 attempts** for transient Gemini API failures.
 
-Permanent validation failures will not be endlessly retried.
-
-Example:
+Retryable API error codes are:
 
 ```text
-Attempt 1 → failure
-     ↓
-Attempt 2 → failure
-     ↓
-Attempt 3 → failure
-     ↓
-status = failed
+429
+500
+502
+503
+504
 ```
 
-A failed AI response will never be silently accepted.
+A delay of **2 seconds** is applied between retry attempts.
+
+Daily quota exhaustion is not retried because repeating the request will not resolve the quota limitation.
+
+Non-retryable API errors and unexpected exceptions terminate processing for the affected image and are recorded as failures.
+
+### Idempotent Batch Behavior
+
+Before processing an image, the job checks `dataset.json` for an existing record with the same filename.
+
+Images whose existing status is:
+
+```text
+processed
+```
+
+are skipped.
+
+If an image is processed again after a failure, its existing dataset record is replaced with the new result rather than creating a duplicate entry.
+
+The corresponding PostgreSQL `images` record is also updated using the unique filename.
+
+### Failure Handling
+
+When processing fails after the available attempts, the image is stored with:
+
+```text
+status: failed
+error: <error message>
+attempts: <number of attempts>
+```
+
+Failed images are also included in a `failure_alert` summary containing the failed count and filenames.
+
+This ensures that processing failures remain visible instead of being silently ignored.
+
+### Dataset and Usage Summary
+
+After processing, the batch job calculates:
+
+* category counts
+* prompt token usage
+* output token usage
+* thoughts token usage
+* total token usage
+* estimated cost
+* total successful images
+* failed image count
+
+The dataset is marked as final only when:
+
+```text
+50 images exist
+AND
+50 images are successfully processed
+AND
+0 images have failed
+```
+
+The resulting dataset state is persisted to `data/dataset.json`.
 
 ---
 
 ## 13. Matching Strategy
 
-Each successfully processed image will have:
+The matching system compares the semantic representation of a blog post with stored image embeddings.
 
-1. Structured metadata.
-2. A descriptive caption.
-3. An embedding derived from its semantic description.
+Both blog text and images are embedded using the configured Gemini embedding model with an output dimensionality of **768**.
 
-Each blog post will also receive an embedding.
-
-For a post, candidate images will be ranked using cosine similarity between:
+### Blog Post Embedding
 
 ```text
-post embedding
-       ↕
+Blog Content
+     ↓
+PostEmbeddingService
+     ↓
+Gemini Text Embedding
+     ↓
+768-dimensional vector
+```
+
+### Image Embedding
+
+```text
+Image
+  ↓
+EmbeddingService
+  ↓
+Gemini Image Embedding
+  ↓
+768-dimensional vector
+  ↓
+PostgreSQL images.embedding
+```
+
+The image embedding pipeline generates embeddings for images in `data/images` and stores each generated embedding directly in the `embedding` field of the corresponding PostgreSQL `images` record.
+
+The matching service loads these stored embeddings from PostgreSQL when constructing the candidate image set.
+
+The current development dataset contains **50 images with successfully generated 768-dimensional embeddings**.
+
+### Similarity Calculation
+
+For each image with a stored embedding, the system calculates cosine similarity between:
+
+```text
+blog post embedding
+        ↕
 image embedding
 ```
 
-The system will return ranked candidates rather than relying on exact keyword matching.
+The cosine similarity implementation validates that both vectors have the same dimensionality and returns a score representing their semantic similarity.
 
-For example:
+### Ranking
+
+Each candidate image receives:
 
 ```text
-Post:
-"Ecology and behavior of Vulpes vulpes"
-
-Image metadata:
-subject = "red fox"
-category = "animal"
+filename
+similarity score
+accepted / rejected status
+explanation
 ```
 
-The semantic representation should allow the system to recognize that **Vulpes vulpes** and **red fox** refer to the same subject.
+Candidates are sorted with accepted images first and higher similarity scores first within the same acceptance status.
+
+The highest-ranked accepted image is returned as the final match.
+
+If no image passes the mismatch guard, the system returns a rejection response instead of selecting an unsuitable image.
+
+### Matching Flow
+
+```text
+Blog Content
+      ↓
+Generate Text Embedding
+      ↓
+Load Images With Stored Embeddings
+      ↓
+Calculate Cosine Similarity
+      ↓
+Run Mismatch Guard
+      ↓
+Accepted / Rejected
+      ↓
+Sort by Acceptance + Similarity
+      ↓
+Return Best Accepted Image
+```
+
+The matching process therefore combines semantic similarity with deterministic metadata-based validation rather than relying on embedding similarity alone.
 
 ---
 
 ## 14. Mismatch Guard
 
-The mismatch guard is the safety layer between similarity ranking and the final recommendation.
+The mismatch guard prevents an image from being accepted solely because it has a relatively high embedding similarity score.
 
-It will consider:
+Each candidate must pass the following checks.
 
-1. Semantic similarity score.
-2. Image category.
-3. Detected subject.
-4. Vision-model confidence.
-5. Configured similarity threshold.
+### 1. Similarity Threshold
 
-The guard will run **after candidate ranking but before final recommendation**.
-
-### Example: Valid Match
+The candidate must have a cosine similarity of at least:
 
 ```text
-Post:
-"The behavior of red foxes"
-
-Candidate:
-"Red fox standing in a forest"
-
-Similarity:
-high
-
-Subject:
-red fox
-
-Decision:
-ACCEPT
+SIMILARITY_THRESHOLD = 0.30
 ```
 
-### Example: Invalid Match
+Candidates below this threshold are rejected.
 
 ```text
-Post:
-"The behavior of red foxes"
-
-Candidate:
-"Gray wolf standing in a forest"
-
-Similarity:
-high enough to be considered
-
-Subject:
-gray wolf
-
-Decision:
-REJECT
-
-Reason:
-Detected subject does not match the expected subject.
+similarity < 0.30
+    → rejected
 ```
 
-The system must not allow a high embedding similarity score to override an explicit subject mismatch.
+### 2. Confidence Threshold
 
-### Example: No Confident Match
+When image subject or category metadata is available, the image confidence must be at least:
 
 ```text
-Post:
-"Rare desert fox behavior"
-
-Best candidate:
-Similarity below threshold
-
-Decision:
-NO_CONFIDENT_MATCH
-
-Reason:
-No candidate exceeded the required similarity threshold.
+MIN_CONFIDENCE = 0.80
 ```
+
+```text
+confidence < 0.80
+    → rejected
+```
+
+### 3. Metadata Relevance Check
+
+When vision metadata is available, the guard uses the most specific available metadata for the relevance check.
+
+If an image subject is available, the blog post must contain that subject.
+
+```text
+subject available
+       ↓
+subject mentioned in post?
+       ↓
+   Yes → pass
+   No  → reject
+```
+
+If no subject is available but a category is available, the blog post must contain that category.
+
+```text
+subject unavailable
+       ↓
+category available
+       ↓
+category mentioned in post?
+       ↓
+   Yes → pass
+   No  → reject
+```
+
+A broad category cannot override a specific subject mismatch. For example, an image with subject `wolf` and category `animal` is rejected for a post about a `fox` even though the word `animal` appears in the post.
+
+The current implementation performs this as a case-insensitive literal substring check. It does not use another AI model or semantic classifier for this metadata check.
+
+### Guard Decision
+
+The complete decision flow is:
+
+```text
+Candidate Image
+      ↓
+Similarity >= 0.30?
+      │
+     No ───────→ Reject
+      │
+     Yes
+      ↓
+Metadata available?
+      │
+     No ───────→ Accept
+      │
+     Yes
+      ↓
+Confidence >= 0.80?
+      │
+     No ───────→ Reject
+      │
+     Yes
+      ↓
+Subject available?
+      │
+     Yes
+      ↓
+Subject mentioned?
+      │
+     No ───────→ Reject
+      │
+     Yes
+      ↓
+    Accept
+
+If subject is unavailable:
+      ↓
+Category available?
+      │
+     Yes
+      ↓
+Category mentioned?
+      │
+     No ───────→ Reject
+      │
+     Yes
+      ↓
+    Accept
+```
+
+Each rejection includes a human-readable explanation indicating which guard condition was not satisfied.
+
+This guard provides a deterministic safety layer after semantic similarity calculation and prevents weak or obviously unrelated candidates from being returned as final matches.
 
 ---
 
 ## 15. Human Review
 
-Candidates that are uncertain but potentially useful may be marked:
+The system provides a human review layer for recording manual decisions about image relevance.
+
+A reviewer can submit one of two decisions:
 
 ```text
-review_required
+approved
+rejected
 ```
 
-Review endpoints will allow a human to:
+Optional reviewer feedback can also be stored with the decision.
+
+### Review API
 
 ```text
-approve
-reject
+POST /api/v1/review
 ```
 
-a suggestion.
+Submits or updates a review decision for an image.
 
-Human decisions will be persisted in the `reviews` table.
+```text
+GET /api/v1/review/{filename}
+```
+
+Retrieves the stored review decision for a specific image.
+
+### Review Persistence
+
+Human review decisions are persisted in the `reviews` table:
+
+```text
+id
+filename
+decision
+feedback
+```
+
+The `filename` field is unique, so submitting another review for the same image updates the existing review rather than creating a duplicate record.
+
+The review service stores and retrieves human decisions but does not automatically modify image metadata, embeddings, similarity scores, or mismatch-guard thresholds.
+
+Human review therefore acts as a separate verification layer around the automated matching system.
 
 ---
 
 ## 16. Evaluation Dataset
 
-A labeled evaluation set containing at least **10 posts** will be created.
-
-Each evaluation post will have one manually identified correct image.
-
-The evaluation dataset will deliberately contain difficult near-matches, including examples such as:
+The system includes a separate evaluation dataset stored in:
 
 ```text
-fox ↔ wolf
-cat ↔ dog
-car ↔ motorcycle
-mountain ↔ hill
+data/eval_dataset.json
 ```
 
-This ensures that the evaluation tests both semantic ranking and mismatch protection.
+The dataset contains **10 evaluation posts**, covering the 10 target image categories:
+
+```text
+fox
+wolf
+cat
+dog
+bird
+horse
+motorcycle
+car
+mountain
+plain
+```
+
+Each evaluation record contains:
+
+```json
+{
+  "post": "A wild fox walking through a forest.",
+  "expected_category": "fox"
+}
+```
+
+The `post` field contains the input blog content, while `expected_category` identifies the expected image category.
+
+### Evaluation Process
+
+For each evaluation post:
+
+1. The post is converted into an embedding.
+2. The matching service ranks the available image candidates.
+3. Candidates rejected by the mismatch guard are removed from consideration.
+4. The highest-ranked accepted image is selected.
+5. The predicted category is extracted from the selected filename.
+6. The predicted category is compared with the expected category.
+
+The evaluation records the post, expected category, predicted category, selected filename, similarity score, and whether the prediction was correct.
+
+If no candidate passes the mismatch guard, the evaluation records no predicted category and marks the result as incorrect.
+
+The evaluation dataset is kept separate from the development image dataset so that matching performance can be measured using a fixed set of test inputs.
 
 ---
 
 ## 17. Evaluation Metric
 
-The primary quality metric is **Top-1 Precision**:
+The primary evaluation metric is **Top-1 Precision**.
+
+For each evaluation post, the system considers the highest-ranked image that passes the mismatch guard.
+
+A prediction is counted as correct when the category derived from the selected image filename matches the expected category in the evaluation dataset.
+
+The metric is calculated as:
 
 ```text
-Number of evaluated posts where the correct image ranks first
-───────────────────────────────────────────────────────────
-Total evaluated posts
+Top-1 Precision = Correct Predictions / Total Evaluations
 ```
 
-For example:
+For the current evaluation dataset:
 
 ```text
-9 correct first suggestions
-─────────────────────────── = 0.90
-10 evaluated posts
+Total evaluations = 10
 ```
 
-The final measured precision will be reported in:
+The evaluation service returns:
 
 ```text
-README.md
-EVIDENCE.md
-BUILDLOG.md
+total
+correct
+top_1_precision
+results
 ```
 
-The evaluation output will also be retained as evidence.
+Each individual result also records:
+
+```text
+post
+expected_category
+predicted_category
+filename
+score
+correct
+```
+
+If no image passes the mismatch guard for an evaluation post, the prediction is recorded as incorrect.
+
+Top-1 precision provides a direct measure of whether the system selects an image from the expected category as its highest-ranked accepted result.
 
 ---
 
 ## 18. Cost Tracking
 
-Every Gemini operation will create an `ai_cost_logs` record.
+The system tracks AI operations through the PostgreSQL `ai_calls` table.
 
-At minimum, the record will identify:
+Each recorded AI call contains:
 
 ```text
 operation
+provider
 model
-item_id
-input tokens
-output tokens
-estimated cost
-timestamp
+input_tokens
+output_tokens
+estimated_cost
+success
+error
 ```
 
-The purpose is to make AI usage visible and auditable.
+The `AICostService` records AI operations performed by the vision and embedding services.
 
-The project will remain within the required **$0 / no credit card** constraint.
+### Cost Estimation
+
+For operations where token usage is available, the application estimates cost using the configured token rates:
+
+```text
+Input cost  = input tokens × 0.75 / 1,000,000
+
+Output cost = output tokens × 3.75 / 1,000,000
+
+Estimated cost = input cost + output cost
+```
+
+Embedding operations currently record an estimated cost of `0.0` because token usage is not returned by the current embedding implementation.
+
+These values represent **application-level estimates**, not confirmed provider billing.
+
+### Budget Protection
+
+Before an AI operation is executed, the system checks the accumulated estimated cost against the configured AI budget limit.
+
+```text
+Current accumulated cost
+        +
+Estimated new operation cost
+        ≤
+Configured budget limit
+```
+
+If the estimated operation would exceed the configured budget limit, the operation is rejected before the API call is made.
+
+### Cost Reporting
+
+The system can calculate the total estimated AI cost by summing the `estimated_cost` values stored in `ai_calls`.
+
+This provides persistent application-level cost monitoring across vision and embedding operations while supporting the project's requirement to operate within its configured AI usage budget.
 
 ---
 
 ## 19. Dataset
 
-The initial development dataset will contain approximately **50 images**.
+The development dataset is stored in:
 
-The dataset will include:
+```text
+data/dataset.json
+```
 
-* Multiple subject categories.
-* Multiple examples of the same subject.
-* Visually similar but semantically different subjects.
-* Images suitable for mismatch testing.
-* Metadata needed for evaluation.
+The dataset is represented as a development fixture with the following configuration:
 
-The dataset will be organized so that image identity and expected subject labels can be reproduced consistently.
+```text
+version: dev-1.0
+target_image_count: 50
+final_dataset: false
+```
 
-The final repository will document the dataset source and licensing/usage status.
+The intended dataset contains **50 images across 10 target categories**, with five images planned for each category:
+
+```text
+fox
+wolf
+cat
+dog
+bird
+horse
+motorcycle
+car
+mountain
+plain
+```
+
+Each successfully processed image contains:
+
+```text
+filename
+path
+subject
+category
+attributes
+caption
+confidence
+status
+attempts
+usage
+```
+
+Failed images instead record their filename, path, processing status, number of attempts, and error information.
+
+### Dataset Processing State
+
+The dataset maintains processing statistics including:
+
+```text
+category_counts
+usage_summary
+failure_alert
+```
+
+The `final_dataset` field is set to `true` only when all 50 expected images have been successfully processed with no failures.
+
+The current development fixture is therefore treated as an **incomplete development dataset** until all required images have been processed successfully.
+
+### Dataset and AI Metadata
+
+For successfully processed images, the dataset records AI usage information including:
+
+```text
+prompt_tokens
+output_tokens
+thoughts_tokens
+total_tokens
+estimated_cost
+```
+
+This allows the dataset-building process to track both processing results and AI resource usage.
+
+The dataset is used as the source for the background image-processing pipeline, while the PostgreSQL database stores the corresponding image metadata required by the application.
 
 ---
 
 ## 20. Phase Gates
 
-### Phase 1 — Design
+The project is developed in four phases. Each phase has a defined completion gate based on the implemented system and required evidence.
+
+### Phase 1 — Design and Data Foundation
 
 Required:
 
 * Design document.
-* Image metadata/schema.
+* Image metadata schema.
 * Matching strategy.
 * Mismatch-guard rules.
-* Database design.
-* Approximately 50-image dataset.
+* PostgreSQL database design.
+* Approximately 50-image development dataset.
+* Database models and migrations.
 
-**Gate:** design committed and dataset available.
+**Gate:** design, database structure, and development dataset are available and consistent with the implemented architecture.
 
 ### Phase 2 — Image Understanding Pipeline
 
 Required:
 
-* Gemini Vision.
+* Gemini Vision integration.
 * Structured JSON output.
 * Pydantic validation.
-* Low-confidence flagging.
+* Confidence validation and low-confidence handling.
 * Background batch processing.
-* Retries.
-* Idempotency.
-* Cost tracking.
+* Retry handling for transient API failures.
+* Idempotent processing behavior.
+* AI usage and cost tracking.
+* Failure recording.
 
-**Gate:** all dataset images processed successfully or explicitly recorded as failed, with AI costs visible.
+**Gate:** the batch pipeline can process the development dataset while recording successful results, failures, retry information, and AI usage statistics.
 
 ### Phase 3 — Matching Engine
 
 Required:
 
 * Image embeddings.
-* Post embeddings.
-* Similarity search.
-* Ranking.
+* Blog-post text embeddings.
+* Cosine similarity calculation.
+* Candidate ranking.
 * Mismatch guard.
 * Human-readable rejection explanations.
+* Integration of generated image embeddings with the PostgreSQL `images.embedding` field used by the matching service.
 
 **Gate:**
 
-```text
-Fox article → fox ranks first
+The matching pipeline must demonstrate the intended behavior using actual evaluation inputs and stored image data:
 
-Forced wolf candidate → rejected
+```text
+Fox article → fox candidate ranks highest among accepted results
+
+Forced wolf candidate → rejected when the mismatch guard conditions are not satisfied
 ```
 
-### Phase 4 — Production Layer
+These are acceptance-test scenarios used to verify the matching and mismatch-protection behavior.
+
+The current implementation has successfully integrated image embeddings into PostgreSQL and generated 768-dimensional embeddings for all 50 development images.
+
+The evaluation dataset currently contains 10 labeled posts covering the 10 development categories. The latest evaluation run achieved:
+
+```text
+Total evaluation cases: 10
+Correct: 10
+Top-1 precision: 1.00
+```
+
+The detailed evaluation results are treated as project evidence and are recorded separately from this design specification.
+
+### Phase 4 — Evaluation and Evidence
 
 Required:
 
 * Review API.
 * Evaluation dataset.
-* Top-1 precision.
-* README.
+* Top-1 precision calculation.
+* README documentation.
 * Architecture diagram.
 * `EVIDENCE.md`.
 * `BUILDLOG.md`.
 
-**Gate:** measured evaluation precision is produced and documented.
+**Gate:** the evaluation endpoint produces a measured Top-1 precision result, and the final project documentation records the evaluation setup, result, and supporting evidence.
+
+### Phase Completion Rule
+
+A phase is considered complete when its required implementation is available and its gate can be demonstrated using the project's actual code, database state, dataset, or evaluation output.
 
 ---
 
@@ -735,23 +1291,26 @@ This project will **not** build:
 
 * A frontend application.
 * A full image-management platform.
-* User authentication.
-* Complex cloud infrastructure.
+* User authentication and account management.
+* Complex cloud infrastructure or distributed deployment.
 * A dedicated vector database.
 * Model training or fine-tuning.
+* A large-scale production deployment.
 
-The scope is a focused backend system demonstrating:
+The system is intentionally designed as a focused backend application demonstrating:
 
 * Reliable image understanding.
-* Structured AI output.
-* Semantic matching.
-* Mismatch detection.
-* Background processing.
-* Persistence.
-* Cost tracking.
-* Evaluation.
+* Structured AI output and validation.
+* Semantic image-to-text matching.
+* Mismatch detection and rejection.
+* Background batch processing.
+* PostgreSQL persistence.
+* AI usage and cost tracking.
+* Evaluation and measurable results.
 * Human review.
+
+The project uses a local PostgreSQL environment and keeps the architecture intentionally small enough to develop, test, and evaluate without requiring Docker, Kubernetes, or other deployment infrastructure.
 
 The goal is not to build the biggest system possible.
 
-The goal is to build a **small, testable, evidence-backed backend that behaves correctly when the obvious answer is wrong**.
+## The goal is to build a **small, testable, evidence-backed backend that behaves correctly when the obvious answer is wrong**.

@@ -14,8 +14,8 @@ class MismatchGuard:
     def check(
         self,
         similarity: float,
-        image_subject: str,
-        image_category: str,
+        image_subject: str | None,
+        image_category: str | None,
         image_confidence: float,
         post_text: str,
     ) -> GuardResult:
@@ -30,8 +30,12 @@ class MismatchGuard:
                 ),
             )
 
-        # If vision metadata exists, enforce its confidence and metadata checks.
-        if image_subject.strip() or image_category.strip():
+        subject = (image_subject or "").strip()
+        category = (image_category or "").strip()
+
+        # If vision metadata exists, enforce its confidence and
+        # use the most specific available metadata for the mismatch check.
+        if subject or category:
 
             if image_confidence < self.MIN_CONFIDENCE:
                 return GuardResult(
@@ -46,22 +50,32 @@ class MismatchGuard:
             post_text_lower = post_text.lower()
 
             subject_match = (
-                image_subject.strip().lower()
-                and image_subject.strip().lower() in post_text_lower
+                subject.lower() in post_text_lower
+                if subject
+                else False
             )
 
             category_match = (
-                image_category.strip().lower()
-                and image_category.strip().lower() in post_text_lower
+                category.lower() in post_text_lower
+                if category
+                else False
             )
 
-            if not subject_match and not category_match:
+            if subject:
+                if not subject_match:
+                    return GuardResult(
+                        accepted=False,
+                        reason=(
+                            f"Post text does not mention the image subject "
+                            f"'{subject}'."
+                        ),
+                    )
+            elif not category_match:
                 return GuardResult(
                     accepted=False,
                     reason=(
-                        f"Post text does not mention the image subject "
-                        f"'{image_subject}' or category "
-                        f"'{image_category}'."
+                        f"Post text does not mention the image category "
+                        f"'{category}'."
                     ),
                 )
 

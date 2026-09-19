@@ -1,40 +1,47 @@
-import json
 from pathlib import Path
 
+from app.database import SessionLocal
+from app.models import Image
 from app.services.embedding_service import EmbeddingService
 
 
 IMAGES_DIR = Path("data/images")
-OUTPUT_FILE = Path("data/image_embeddings.json")
 
 
 def build_image_embeddings():
     service = EmbeddingService()
-
-    embeddings = []
+    db = SessionLocal()
 
     image_files = sorted(IMAGES_DIR.glob("*.jpg"))
 
     print(f"Found {len(image_files)} images.")
 
-    for index, image_path in enumerate(image_files, start=1):
-        print(f"[{index}/{len(image_files)}] Embedding {image_path.name}...")
+    try:
+        for index, image_path in enumerate(image_files, start=1):
+            print(f"[{index}/{len(image_files)}] Embedding {image_path.name}...")
 
-        embedding = service.embed_image(str(image_path))
+            image_record = (
+                db.query(Image)
+                .filter(Image.filename == image_path.name)
+                .first()
+            )
 
-        embeddings.append(
-            {
-                "filename": image_path.name,
-                "path": str(image_path),
-                "embedding": embedding,
-            }
-        )
+            if image_record is None:
+                print(f"  Skipping {image_path.name}: database record not found.")
+                continue
 
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as file:
-        json.dump(embeddings, file)
+            embedding = service.embed_image(str(image_path))
+
+            image_record.embedding = embedding
+            db.commit()
+
+            print(f"  Saved embedding to PostgreSQL.")
+
+    finally:
+        db.close()
 
     print()
-    print(f"Saved {len(embeddings)} image embeddings to {OUTPUT_FILE}")
+    print("Image embedding pipeline completed.")
 
 
 if __name__ == "__main__":
