@@ -9,3 +9,4 @@ endpoints:
   - GET /api/v1/evaluation
   - POST /api/v1/review
   - GET /api/v1/review/{filename}
+  - POST /api/v1/jobs/image-batch
