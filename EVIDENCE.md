@@ -147,7 +147,7 @@ The current evaluation is intentionally small and uses 10 labeled posts over the
 
 
 
-The dataset contains 50 images. At the time of evaluation, 16/50 images had successful Gemini vision metadata and 34/50 failed during vision processing because the Gemini free-tier daily request quota was exhausted. The batch job records these failures in both the dataset evidence and PostgreSQL, and quota exhaustion is handled without unnecessary retries.
+The development dataset contains 50 images. The earlier Gemini vision-metadata processing run successfully produced metadata for 16/50 images, while 34/50 failed because the Gemini free-tier request quota was exhausted. These vision-processing failures are recorded in the dataset evidence and PostgreSQL. Separately, the image-embedding pipeline successfully generated 768-dimensional embeddings for all 50/50 images and stored them in the PostgreSQL `images.embedding` field used by the matching service.
 
 
 
