@@ -402,11 +402,10 @@ This is a backend capstone implementation rather than a production-scale image p
 
 Current limitations include:
 
-* The image library is currently file-based rather than persisted in PostgreSQL.
-* Image embeddings are stored in a JSON file.
+* Image embeddings are currently stored in a JSON file rather than PostgreSQL.
 * The similarity threshold is provisional and requires more evaluation data for robust tuning.
 * The current evaluation set contains only 10 posts.
-* Vision metadata is unavailable for some dataset images because of Gemini API quota/rate-limit failures during batch processing.
+* Vision metadata is unavailable for 34 of the 50 dataset images because the Gemini free-tier daily request quota was exhausted during batch processing.
 * The metadata guard currently uses literal subject/category matching in the blog text.
 * There is no frontend.
 * There is no authentication system.
@@ -415,17 +414,16 @@ Current limitations include:
 
 ## Planned Improvements
 
-The original design includes several extensions for a more complete production-style system:
+Possible future extensions include:
 
-* PostgreSQL persistence for images, vectors, posts, suggestions, reviews, and AI cost logs.
-* Human review and approval/rejection endpoints.
-* Persistent match suggestions.
-* More robust metadata-aware matching.
+* Moving image embeddings from JSON storage to PostgreSQL or a dedicated vector database.
+* More robust semantic metadata-aware matching.
 * Larger and more diverse evaluation datasets.
 * Threshold tuning based on evaluation results.
-* Cost and usage tracking.
 * More comprehensive mismatch and edge-case evaluation.
-* Architecture and evidence documentation.
+* Production-scale image ingestion and storage.
+* Frontend integration.
+* Authentication and authorization.
 
 ## Design Goals
 
