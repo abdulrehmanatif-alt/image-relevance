@@ -1,8 +1,8 @@
-\# BUILDLOG
+# BUILDLOG
 
 
 
-\## Purpose
+## Purpose
 
 
 
@@ -16,7 +16,7 @@ result.
 
 
 
-\## AI Assistance
+## AI Assistance
 
 
 
@@ -24,27 +24,27 @@ AI assistance was used throughout development for:
 
 
 
-\- Project architecture and implementation planning
+- Project architecture and implementation planning
 
-\- FastAPI route and service structure
+- FastAPI route and service structure
 
-\- Pydantic schema design and validation
+- Pydantic schema design and validation
 
-\- Gemini Vision integration
+- Gemini Vision integration
 
-\- Gemini image and text embedding integration
+- Gemini image and text embedding integration
 
-\- Cosine similarity implementation
+- Cosine similarity implementation
 
-\- Mismatch guard design
+- Mismatch guard design
 
-\- Evaluation and testing strategy
+- Evaluation and testing strategy
 
-\- Review API implementation
+- Review API implementation
 
-\- README and EVIDENCE.md documentation
+- README and EVIDENCE.md documentation
 
-\- Debugging Python, dependency, Git, and API issues
+- Debugging Python, dependency, Git, and API issues
 
 
 
@@ -54,11 +54,11 @@ accepted into the project.
 
 
 
-\## Development Decisions and Corrections
+## Development Decisions and Corrections
 
 
 
-\### Project setup
+### Project setup
 
 
 
@@ -66,15 +66,15 @@ AI guidance helped structure the project into separate layers for:
 
 
 
-\- API routes
+- API routes
 
-\- Pydantic schemas
+- Pydantic schemas
 
-\- Services and business logic
+- Services and business logic
 
-\- Background jobs
+- Background jobs
 
-\- Dataset and evaluation data
+- Dataset and evaluation data
 
 
 
@@ -84,7 +84,7 @@ environment. Docker and WSL were not used for the local development setup.
 
 
 
-\### Dataset
+### Dataset
 
 
 
@@ -92,25 +92,25 @@ The target dataset was expanded to 50 images across 10 categories:
 
 
 
-\- fox
+- fox
 
-\- wolf
+- wolf
 
-\- cat
+- cat
 
-\- dog
+- dog
 
-\- bird
+- bird
 
-\- horse
+- horse
 
-\- motorcycle
+- motorcycle
 
-\- car
+- car
 
-\- mountain
+- mountain
 
-\- plain
+- plain
 
 
 
@@ -118,7 +118,7 @@ The dataset contains five images per category.
 
 
 
-\### Vision processing
+### Vision processing
 
 
 
@@ -138,7 +138,7 @@ being presented as successful classifications.
 
 
 
-\### Embeddings
+### Embeddings
 
 
 
@@ -150,7 +150,7 @@ library, while blog posts are embedded using the same embedding service.
 
 
 
-\### Matching and mismatch guard
+### Matching and mismatch guard
 
 
 
@@ -160,13 +160,13 @@ This was extended with a mismatch guard using:
 
 
 
-1\. cosine similarity
+1. cosine similarity
 
-2\. image metadata when available
+2. image metadata when available
 
-3\. confidence thresholds
+3. confidence thresholds
 
-4\. subject/category checks against the blog text
+4. subject/category checks against the blog text
 
 
 
@@ -176,7 +176,7 @@ test dataset rather than being presented as a universally correct value.
 
 
 
-\### Evaluation
+### Evaluation
 
 
 
@@ -194,15 +194,10 @@ configured threshold.
 
 
 
-\### Review API
-
-
+### Review API
 
 A review API was added with approve/reject decisions and optional feedback.
 
-The current implementation stores reviews in memory. This is intentionally
-
-documented as a limitation because reviews are lost when the application
-
-restarts.
+Review decisions are persisted in PostgreSQL so they remain available after
+the application restarts.
 
